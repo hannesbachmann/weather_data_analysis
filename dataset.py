@@ -1,4 +1,5 @@
 import csv
+import matplotlib.pyplot as plt
 
 
 class DataSet:
@@ -31,6 +32,27 @@ class DataSet:
 if __name__ == '__main__':
     Data = DataSet()
     Data.open_file()
-    print(Data.get_row(0))
-    print(Data.get_legend())
-    # print(Data.get_data_set())
+    complete_file = Data.get_data_set()
+    print(complete_file)
+    values = [row[3] for row in complete_file]
+    ylabel = values[0]
+    values = values[1:]
+
+    timesteps = [row[2] for row in complete_file]
+    xlabel = timesteps[0]
+    timesteps = timesteps[1:]
+
+    start_time = timesteps[0]
+    timesteps = [str(int(step) - int(start_time)) for step in timesteps]
+    print(timesteps)
+    print(values)
+
+    x = [int(step) for step in timesteps]
+    y = [float(value) for value in values]
+
+    plt.plot(x, y)
+    plt.xlabel(xlabel)
+    plt.ylabel(ylabel)
+
+    plt.show()
+
