@@ -1,5 +1,7 @@
 import csv
 import matplotlib.pyplot as plt
+from scipy.interpolate import CubicSpline
+import numpy as np
 
 
 class DataSet:
@@ -33,24 +35,49 @@ if __name__ == '__main__':
     Data = DataSet()
     Data.open_file()
     complete_file = Data.get_data_set()
-    print(complete_file)
+
     values = [row[3] for row in complete_file]
     ylabel = values[0]
-    values = values[1:]
+    values = values[1:101]
 
     timesteps = [row[2] for row in complete_file]
     xlabel = timesteps[0]
-    timesteps = timesteps[1:]
+    timesteps = timesteps[1:101]
 
-    start_time = timesteps[0]
-    timesteps = [str(int(step) - int(start_time)) for step in timesteps]
-    print(timesteps)
-    print(values)
+    minute = [step[10:12] for step in timesteps]
+    hour = [step[8:10] for step in timesteps]
+    day = [step[6:8] for step in timesteps]
+    month = [step[4:6] for step in timesteps]
+    year = [step[0:4] for step in timesteps]
 
-    x = [int(step) for step in timesteps]
+    total_minute = 0
+    last_min = 0
+    for min in hour:
+        if int(min) == 0:
+            last_min = -1
+        total_minute += int(min) - last_min
+        last_min = int(min)
+    x_minute = np.arange(0, total_minute, 1)
+
+    x = x_minute
+    # print(x_minute, len(x_minute))
     y = [float(value) for value in values]
+    # y = []
+    # for s_y in short_y:
+    #     for i in range(4):
+    #         y.append(s_y)
+    # print(y)
 
-    plt.plot(x, y)
+    cubic_spline = CubicSpline(x, y)
+
+    xs = np.arange(0, 101, 0.25)
+    # print(cubic_spline(xs))
+
+    fig, ax = plt.subplots(figsize=(6.5, 4))
+    ax.plot(xs, cubic_spline(xs), 'x', label='Spline 15 Interval')
+    ax.plot(x, y, 'o', label='data')
+    ax.plot(xs, cubic_spline(xs), label='Spline')
+    ax.legend(loc='lower left', ncol=1)
     plt.xlabel(xlabel)
     plt.ylabel(ylabel)
 
