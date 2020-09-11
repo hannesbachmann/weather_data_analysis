@@ -1,7 +1,4 @@
 import csv
-import matplotlib.pyplot as plt
-from scipy.interpolate import CubicSpline
-import numpy as np
 
 
 class DataSet:
@@ -9,7 +6,7 @@ class DataSet:
         self.__REL_PATH = 'data_TT_TU_MN009'
         self.__file_type = 'csv'
 
-        self.__data = []  # array for the rows of the data table
+        self.__data = []  # array for the rows and cols of the data table
 
     def open_file(self):
         self.__data = []
