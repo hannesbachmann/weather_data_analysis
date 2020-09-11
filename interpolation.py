@@ -5,11 +5,9 @@ from dataset import Data
 
 def perform_interpolation(complete_data):
     values = [row[3] for row in complete_data]
-    ylabel = values[0]
     values = values[1:]
 
     timesteps = [row[2] for row in complete_data]
-    xlabel = timesteps[0]
     timesteps = timesteps[1:]
 
     hour = [step[8:10] for step in timesteps]
@@ -50,4 +48,5 @@ def perform_interpolation(complete_data):
                                     str(tmp_year) + str(tmp_month) + str(tmp_day) + str(tmp_hour) + '45',
                                     str(spline_arr[spline_index]), row[4], row[5]])
         spline_index += 1
+    return finer_complete_file
 
