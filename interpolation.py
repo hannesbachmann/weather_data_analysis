@@ -1,6 +1,5 @@
 from scipy.interpolate import CubicSpline
 import numpy as np
-from dataset import Data
 
 
 def perform_interpolation(complete_data):
