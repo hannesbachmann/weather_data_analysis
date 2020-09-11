@@ -27,3 +27,27 @@ def perform_interpolation(complete_data):
     xs = np.arange(0, total_hour, 0.25)
     spline_arr = cubic_spline(xs)
 
+    spline_index = 0
+    finer_complete_file = []
+    for row in complete_data[1:]:
+        tmp_year = row[2][0:4]
+        tmp_month = row[2][4:6]
+        tmp_day = row[2][6:8]
+        tmp_hour = row[2][8:10]
+        finer_complete_file.append([row[0], row[1],
+                                    str(tmp_year) + str(tmp_month) + str(tmp_day) + str(tmp_hour) + '00',
+                                    spline_arr[spline_index], row[4], row[5]])
+        spline_index += 1
+        finer_complete_file.append([row[0], row[1],
+                                    str(tmp_year) + str(tmp_month) + str(tmp_day) + str(tmp_hour) + '15',
+                                    spline_arr[spline_index], row[4], row[5]])
+        spline_index += 1
+        finer_complete_file.append([row[0], row[1],
+                                    str(tmp_year) + str(tmp_month) + str(tmp_day) + str(tmp_hour) + '30',
+                                    spline_arr[spline_index], row[4], row[5]])
+        spline_index += 1
+        finer_complete_file.append([row[0], row[1],
+                                    str(tmp_year) + str(tmp_month) + str(tmp_day) + str(tmp_hour) + '45',
+                                    str(spline_arr[spline_index]), row[4], row[5]])
+        spline_index += 1
+
