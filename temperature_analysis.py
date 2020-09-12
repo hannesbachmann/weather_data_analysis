@@ -36,13 +36,11 @@ class Temperature:
         hottest_temp = float(complete_data[1][3])
         self.__hottest_row = [complete_data[1]]
         for row in complete_data[1:]:
-            if float(row[3]) < hottest_temp:
+            if float(row[3]) > hottest_temp:
                 hottest_temp = float(row[3])
                 self.__hottest_row = [row]
             elif float(row[3]) == hottest_temp:
                 self.__hottest_row.append(row)
-
-
 
 
 if __name__ == '__main__':
