@@ -42,6 +42,28 @@ class Temperature:
             elif float(row[3]) == hottest_temp:
                 self.__hottest_row.append(row)
 
+    def find_coldest_day(self, year_data):
+        pass
+
+    def separate_years(self, complete_data):
+        """structure:
+            [[day], ..., [day]]
+            day:
+                [row, ..., row]
+        """
+        temperatures_by_day = [[]]
+        total_day = 1
+        num_days = 0
+        for row in complete_data[1:100]:
+            delta_day = int(row[2][6:8]) - total_day
+            total_day = int(row[2][6:8])
+            if delta_day == 1:
+                temperatures_by_day.append([])
+                num_days += 1
+                temperatures_by_day[num_days].append(row)
+            else:
+                temperatures_by_day[num_days].append(row)
+
 
 if __name__ == '__main__':
     D = DataSet()
@@ -50,3 +72,4 @@ if __name__ == '__main__':
     D.open_file()
     mydata = D.get_data_set()
     TEMP.find_coldest_temp_in_row(mydata)
+    TEMP.separate_years(mydata)
