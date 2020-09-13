@@ -68,19 +68,16 @@ class Temperature:
                 [row, ..., row]
         """
         temperatures_by_day = [[]]
-        total_day = 1
         num_days = 0
-        for row in year_data[1:]:
-
-            delta_day = int(row[2][6:8]) - total_day
-            print(delta_day, int(row[2][6:8]), total_day)
-            total_day = int(row[2][6:8])
-            if delta_day == 1:
-                temperatures_by_day.append([])
-                num_days += 1
+        for row in year_data:
+            if int(row[2][8:10]) == 23:
                 temperatures_by_day[num_days].append(row)
+                num_days += 1
+                temperatures_by_day.append([])
             else:
                 temperatures_by_day[num_days].append(row)
+        temperatures_by_day.pop()
+        print(num_days)
         return temperatures_by_day
         # store information of each day of the year
 
