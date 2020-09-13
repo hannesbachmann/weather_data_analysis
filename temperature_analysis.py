@@ -55,6 +55,20 @@ class Temperature:
                 coldest_days.append(day)
         return coldest_days
 
+    def find_hottest_day(self, days_data):
+        hottest_days = [days_data[0]]
+        hottest_temp_middle = self.calc_temp_sum_of_day(days_data[0]) / len(days_data[0])
+        for day in days_data[1:]:
+            day_sum = self.calc_temp_sum_of_day(day)
+            day_middle = day_sum / len(day)
+            if day_middle > hottest_temp_middle:
+                hottest_temp_middle = day_middle
+                hottest_days = [day]
+            elif day_middle == hottest_temp_middle:
+                hottest_days.append(day)
+        print(hottest_temp_middle)
+        return hottest_days
+
     def calc_temp_sum_of_day(self, day_data):
         temp_sum = 0
         for row in day_data:
@@ -77,7 +91,7 @@ class Temperature:
             else:
                 temperatures_by_day[num_days].append(row)
         temperatures_by_day.pop()
-        print(num_days)
+        print(num_days, year_data[0][2][0:4])
         return temperatures_by_day
         # store information of each day of the year
 
@@ -108,7 +122,9 @@ if __name__ == '__main__':
 
     total = []
     for y in ys:
-        total.append(TEMP.separate_into_days(y))
+        # total.append(TEMP.separate_into_days(y))
         days = TEMP.separate_into_days(y)
-        TEMP.find_coldest_day(days)
-        # print(TEMP.calc_temp_sum_of_day(TEMP.separate_into_days(y)[0]) / len(TEMP.separate_into_days(y)[0]))
+        coldest_days_2 = TEMP.find_coldest_day(days)
+        print(coldest_days_2)
+        hottest_days_2 = TEMP.find_hottest_day(days)
+        print(hottest_days_2)
