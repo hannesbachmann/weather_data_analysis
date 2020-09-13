@@ -45,7 +45,7 @@ class Temperature:
     def find_coldest_day(self, year_data):
         pass
 
-    def separate_years(self, complete_data):
+    def separate_days(self, year_data):
         """structure:
             [[day], ..., [day]]
             day:
@@ -54,7 +54,7 @@ class Temperature:
         temperatures_by_day = [[]]
         total_day = 1
         num_days = 0
-        for row in complete_data[1:100]:
+        for row in year_data[1:]:
             delta_day = int(row[2][6:8]) - total_day
             total_day = int(row[2][6:8])
             if delta_day == 1:
@@ -63,6 +63,24 @@ class Temperature:
                 temperatures_by_day[num_days].append(row)
             else:
                 temperatures_by_day[num_days].append(row)
+        return temperatures_by_day
+        # store information of each day of the year
+
+    def separate_years(self, complete_data):
+        temperatures_by_year = [[]]
+        total_year = int(complete_data[1][2][0:4])
+        num_years = 0
+        for row in complete_data[1:]:
+            delta_year = int(row[2][0:4]) - total_year
+            total_year = int(row[2][0:4])
+            print(total_year)
+            if delta_year == 1:
+                temperatures_by_year.append([])
+                num_years += 1
+                temperatures_by_year[num_years].append(row)
+            else:
+                temperatures_by_year[num_years].append(row)
+        return temperatures_by_year
 
 
 if __name__ == '__main__':
@@ -72,4 +90,10 @@ if __name__ == '__main__':
     D.open_file()
     mydata = D.get_data_set()
     TEMP.find_coldest_temp_in_row(mydata)
-    TEMP.separate_years(mydata)
+    y = TEMP.separate_years(mydata)
+    print(len(y))
+    d = []
+    for i in y:
+        print(len(i))
+        d.append(TEMP.separate_days(i))
+    print(len(d))
