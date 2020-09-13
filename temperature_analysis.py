@@ -43,6 +43,12 @@ class Temperature:
                 self.__hottest_row.append(row)
 
     def find_coldest_day(self, year_data):
+        sum_temperature = 0
+        for row in year_data:
+            day_sum = 0
+            day_sum += row[]
+
+    def calc_temp_sum_of_day(self, day_data):
         pass
 
     def separate_days(self, year_data):
@@ -94,6 +100,5 @@ if __name__ == '__main__':
     print(len(y))
     d = []
     for i in y:
-        print(len(i))
         d.append(TEMP.separate_days(i))
     print(len(d))
