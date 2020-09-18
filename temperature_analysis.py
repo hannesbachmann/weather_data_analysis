@@ -9,6 +9,12 @@ class Temperature:
         self.__hottest_day = None
         self.__coldest_day = None
 
+    def get_hottest_temp_each_year(self):
+        return self.__hottest_temp_years
+
+    def get_coldest_temp_each_year(self):
+        return self.__coldest_temp_years
+
     def get_hottest_day(self):
         return self.__hottest_day
 
