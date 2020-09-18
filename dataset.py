@@ -26,3 +26,24 @@ class DataSet:
 
     def get_legend(self):
         return self.__data[0]
+
+
+class TempData:
+    def __init__(self):
+        self.__rel_path = 'hottest_coldest'
+        self.__file_type = 'csv'
+
+    def store_hottest(self, hottest, coldest):
+        with open(self.__rel_path + self.__file_type, 'w', newline='') as csv_hottest:
+            csv_writer = csv.writer(csv_hottest, delimiter=',')
+            for hot_row in hottest:
+                csv_writer.writerow(hot_row)
+            for cold_row in coldest:
+                csv_writer.writerow(cold_row)
+
+
+if __name__ == '__main__':
+    D = DataSet()
+    D.open_file()
+    row = D.get_data_set()[0]
+
