@@ -3,17 +3,11 @@ from dataset import DataSet
 
 class Temperature:
     def __init__(self):
-        self.__coldest_row = None
-        self.__hottest_row = None
+        self.__hottest_temp_years = {}
+        self.__coldest_temp_years = {}
 
         self.__hottest_day = None
         self.__coldest_day = None
-
-    def get_hottest_row(self):
-        return self.__hottest_row
-
-    def get_coldest_row(self):
-        return self.__coldest_row
 
     def get_hottest_day(self):
         return self.__hottest_day
@@ -21,26 +15,29 @@ class Temperature:
     def get_coldest_day(self):
         return self.__coldest_day
 
-    def find_coldest_temp_in_row(self, complete_data):
-        coldest_temp = float(complete_data[1][3])
-        self.__coldest_row = [complete_data[1]]
-        for row in complete_data[1:]:
+    def find_coldest_temp_in_year(self, year_data):
+        coldest_temp = float(year_data[1][3])
+        coldest_row = [year_data[1]]
+        for row in year_data[1:]:
             if float(row[3]) < coldest_temp:
                 coldest_temp = float(row[3])
-                self.__coldest_row = [row]
+                coldest_row = [row]
             elif float(row[3]) == coldest_temp:
-                self.__coldest_row.append(row)
-        print(f"coldest temp: {coldest_temp}, times: {self.__coldest_row}")
+                coldest_row.append(row)
+        self.__coldest_temp_years.update({year_data[1][2][0:4]: coldest_row})
+        print(self.__coldest_temp_years)
+        print(f"coldest temp: {coldest_temp}, times: {coldest_row}")
 
-    def find_hottest_temp_in_row(self, complete_data):
-        hottest_temp = float(complete_data[1][3])
-        self.__hottest_row = [complete_data[1]]
-        for row in complete_data[1:]:
+    def find_hottest_temp_in_year(self, year_data):
+        hottest_temp = float(year_data[1][3])
+        hottest_row = [year_data[1]]
+        for row in year_data[1:]:
             if float(row[3]) > hottest_temp:
                 hottest_temp = float(row[3])
-                self.__hottest_row = [row]
+                hottest_row = [row]
             elif float(row[3]) == hottest_temp:
-                self.__hottest_row.append(row)
+                hottest_row.append(row)
+        print(f"hottest temp: {hottest_temp}, times: {hottest_row}")
 
     def find_coldest_day(self, days_data):
         coldest_days = [days_data[0]]
@@ -66,7 +63,7 @@ class Temperature:
                 hottest_days = [day]
             elif day_middle == hottest_temp_middle:
                 hottest_days.append(day)
-        print(hottest_temp_middle)
+        # print(hottest_temp_middle)
         return hottest_days
 
     def calc_temp_sum_of_day(self, day_data):
@@ -91,7 +88,6 @@ class Temperature:
             else:
                 temperatures_by_day[num_days].append(row)
         temperatures_by_day.pop()
-        print(num_days, year_data[0][2][0:4])
         return temperatures_by_day
         # store information of each day of the year
 
@@ -117,14 +113,16 @@ if __name__ == '__main__':
 
     D.open_file()
     mydata = D.get_data_set()
-    TEMP.find_coldest_temp_in_row(mydata)
+
     ys = TEMP.separate_into_years(mydata)
 
     total = []
     for y in ys:
+        TEMP.find_coldest_temp_in_year(y)
+        TEMP.find_hottest_temp_in_year(y)
         # total.append(TEMP.separate_into_days(y))
         days = TEMP.separate_into_days(y)
-        coldest_days_2 = TEMP.find_coldest_day(days)
-        print(coldest_days_2)
-        hottest_days_2 = TEMP.find_hottest_day(days)
-        print(hottest_days_2)
+        coldest_days_2 = TEMP.find_coldest_day(days)        # solution with self. instead of return
+        # print(coldest_days_2)
+        hottest_days_2 = TEMP.find_hottest_day(days)        # solution with self. instead of return
+        # print(hottest_days_2)
