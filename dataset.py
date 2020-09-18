@@ -40,10 +40,3 @@ class TempData:
                 csv_writer.writerow(hot_row)
             for cold_row in coldest:
                 csv_writer.writerow(cold_row)
-
-
-if __name__ == '__main__':
-    D = DataSet()
-    D.open_file()
-    row = D.get_data_set()[0]
-
