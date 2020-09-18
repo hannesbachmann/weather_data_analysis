@@ -112,24 +112,3 @@ class Temperature:
             else:
                 temperatures_by_year[num_years].append(row)
         return temperatures_by_year
-
-
-if __name__ == '__main__':
-    D = DataSet()
-    TEMP = Temperature()
-
-    D.open_file()
-    mydata = D.get_data_set()
-
-    ys = TEMP.separate_into_years(mydata)
-
-    total = []
-    for y in ys:
-        TEMP.find_coldest_temp_in_year(y)
-        TEMP.find_hottest_temp_in_year(y)
-        # total.append(TEMP.separate_into_days(y))
-        days = TEMP.separate_into_days(y)
-        coldest_days_2 = TEMP.find_coldest_day(days)        # solution with self. instead of return
-        # print(coldest_days_2)
-        hottest_days_2 = TEMP.find_hottest_day(days)        # solution with self. instead of return
-        # print(hottest_days_2)
