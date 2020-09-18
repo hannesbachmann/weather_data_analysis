@@ -37,6 +37,7 @@ class Temperature:
                 hottest_row = [row]
             elif float(row[3]) == hottest_temp:
                 hottest_row.append(row)
+        self.__hottest_temp_years.update({year_data[1][2][0:4]: hottest_row})
         print(f"hottest temp: {hottest_temp}, times: {hottest_row}")
 
     def find_coldest_day(self, days_data):
