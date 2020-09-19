@@ -2,8 +2,8 @@
 
 class Temperature:
     def __init__(self):
-        self.__hottest_temp_years = {}
-        self.__coldest_temp_years = {}
+        self.__hottest_temp_years = []
+        self.__coldest_temp_years = []
 
         self.__hottest_day = None
         self.__coldest_day = None
@@ -29,7 +29,7 @@ class Temperature:
                 coldest_row = [row]
             elif float(row[3]) == coldest_temp:
                 coldest_row.append(row)
-        self.__coldest_temp_years.update({year_data[1][2][0:4]: coldest_row})
+        self.__coldest_temp_years.append(coldest_row)
         print(f"coldest temp: {coldest_temp}, times: {coldest_row}")
 
     def find_hottest_temp_in_year(self, year_data):
@@ -41,7 +41,7 @@ class Temperature:
                 hottest_row = [row]
             elif float(row[3]) == hottest_temp:
                 hottest_row.append(row)
-        self.__hottest_temp_years.update({year_data[1][2][0:4]: hottest_row})
+        self.__hottest_temp_years.append(hottest_row)
         print(f"hottest temp: {hottest_temp}, times: {hottest_row}")
 
     def find_coldest_day(self, days_data):

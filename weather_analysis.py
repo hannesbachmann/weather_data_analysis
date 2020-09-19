@@ -1,12 +1,13 @@
 import display
 from interpolation import perform_interpolation
-from dataset import DataSet
+from dataset import DataSet, TempData
 from temperature_analysis import Temperature
 
 
 def run():
     Dataset = DataSet()
     Temp = Temperature()
+    Tempdata = TempData()
 
     Dataset.open_file()
     complete_file = Dataset.get_data_set()
@@ -23,7 +24,9 @@ def run():
         coldest_days.append(Temp.find_coldest_day(days))
     hottest_temp_year = Temp.get_hottest_temp_each_year()
     coldest_temp_year = Temp.get_coldest_temp_each_year()
-    print(hottest_temp_year['2020'])
+    legend = Dataset.get_legend()
+    Tempdata.store_extrema(legend, hottest_temp_year, coldest_temp_year)
+    print(hottest_temp_year)
 
 
 if __name__ == '__main__':
