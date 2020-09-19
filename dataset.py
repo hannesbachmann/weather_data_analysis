@@ -33,9 +33,10 @@ class TempData:
         self.__rel_path = 'hottest_coldest'
         self.__file_type = 'csv'
 
-    def store_extrema(self, hottest, coldest):
+    def store_extrema(self, legend, hottest, coldest):
         with open(self.__rel_path + self.__file_type, 'w', newline='') as csv_hottest:
             csv_writer = csv.writer(csv_hottest, delimiter=',')
+            csv_writer.writerow(legend)
             for hot_row in hottest:
                 csv_writer.writerow(hot_row)
             for cold_row in coldest:
