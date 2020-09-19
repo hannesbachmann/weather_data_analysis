@@ -1,4 +1,3 @@
-from dataset import DataSet
 
 
 class Temperature:
@@ -31,7 +30,6 @@ class Temperature:
             elif float(row[3]) == coldest_temp:
                 coldest_row.append(row)
         self.__coldest_temp_years.update({year_data[1][2][0:4]: coldest_row})
-        print(self.__coldest_temp_years)
         print(f"coldest temp: {coldest_temp}, times: {coldest_row}")
 
     def find_hottest_temp_in_year(self, year_data):
