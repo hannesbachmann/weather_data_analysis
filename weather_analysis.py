@@ -2,6 +2,7 @@ import display
 from interpolation import perform_interpolation
 from dataset import DataSet, TempData
 from temperature_analysis import Temperature
+from display import plot_hottest_and_coldest_days
 
 
 def run():
@@ -26,7 +27,7 @@ def run():
     coldest_temp_year = Temp.get_coldest_temp_each_year()
     legend = Dataset.get_legend()
     Tempdata.store_extrema(legend, hottest_temp_year, coldest_temp_year)
-    print(hottest_temp_year)
+    plot_hottest_and_coldest_days(hottest_days, coldest_days)
 
 
 if __name__ == '__main__':
