@@ -1,4 +1,3 @@
-import display
 from interpolation import perform_interpolation, gauss_process
 from dataset import DataSet, TempData
 from temperature_analysis import Temperature
