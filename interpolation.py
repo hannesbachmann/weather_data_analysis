@@ -1,7 +1,6 @@
 from scipy.interpolate import CubicSpline
 import numpy as np
 import scipy.spatial
-import matplotlib.pyplot as plt
 
 
 def perform_interpolation(complete_data):
