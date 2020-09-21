@@ -1,7 +1,7 @@
-import display
-from interpolation import perform_interpolation
+from interpolation import perform_interpolation, gauss_process
 from dataset import DataSet, TempData
 from temperature_analysis import Temperature
+from display import plot_hottest_and_coldest_days, plot_trend_prediction, show
 
 
 def run():
@@ -11,7 +11,7 @@ def run():
 
     Dataset.open_file()
     complete_file = Dataset.get_data_set()
-    finer_file = perform_interpolation(complete_file)
+    finer_file = perform_interpolation(complete_data=complete_file)
 
     years = Temp.separate_into_years(finer_file)
     hottest_days = []
@@ -26,7 +26,11 @@ def run():
     coldest_temp_year = Temp.get_coldest_temp_each_year()
     legend = Dataset.get_legend()
     Tempdata.store_extrema(legend, hottest_temp_year, coldest_temp_year)
-    print(hottest_temp_year)
+    plot_hottest_and_coldest_days(hottest_days, coldest_days)
+
+    x, y, x_unknown, y_unknown, sigma = gauss_process(complete_file[1:])
+    plot_trend_prediction(x, y, x_unknown, y_unknown, sigma)
+    show()
 
 
 if __name__ == '__main__':

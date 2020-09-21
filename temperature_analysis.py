@@ -30,7 +30,6 @@ class Temperature:
             elif float(row[3]) == coldest_temp:
                 coldest_row.append(row)
         self.__coldest_temp_years.append(coldest_row)
-        print(f"coldest temp: {coldest_temp}, times: {coldest_row}")
 
     def find_hottest_temp_in_year(self, year_data):
         hottest_temp = float(year_data[1][3])
@@ -42,33 +41,33 @@ class Temperature:
             elif float(row[3]) == hottest_temp:
                 hottest_row.append(row)
         self.__hottest_temp_years.append(hottest_row)
-        print(f"hottest temp: {hottest_temp}, times: {hottest_row}")
 
     def find_coldest_day(self, days_data):
         coldest_days = [days_data[0]]
         coldest_temp_middle = self.calc_temp_sum_of_day(days_data[0]) / len(days_data[0])
         for day in days_data[1:]:
-            day_sum = self.calc_temp_sum_of_day(day)
-            day_middle = day_sum / len(day)
-            if day_middle < coldest_temp_middle:
-                coldest_temp_middle = day_middle
-                coldest_days = [day]
-            elif day_middle == coldest_temp_middle:
-                coldest_days.append(day)
+            if len(day) > 1:
+                day_sum = self.calc_temp_sum_of_day(day)
+                day_middle = day_sum / len(day)
+                if day_middle < coldest_temp_middle:
+                    coldest_temp_middle = day_middle
+                    coldest_days = [day]
+                elif day_middle == coldest_temp_middle:
+                    coldest_days.append(day)
         return coldest_days
 
     def find_hottest_day(self, days_data):
         hottest_days = [days_data[0]]
         hottest_temp_middle = self.calc_temp_sum_of_day(days_data[0]) / len(days_data[0])
         for day in days_data[1:]:
-            day_sum = self.calc_temp_sum_of_day(day)
-            day_middle = day_sum / len(day)
-            if day_middle > hottest_temp_middle:
-                hottest_temp_middle = day_middle
-                hottest_days = [day]
-            elif day_middle == hottest_temp_middle:
-                hottest_days.append(day)
-        # print(hottest_temp_middle)
+            if len(day) > 1:
+                day_sum = self.calc_temp_sum_of_day(day)
+                day_middle = day_sum / len(day)
+                if day_middle > hottest_temp_middle:
+                    hottest_temp_middle = day_middle
+                    hottest_days = [day]
+                elif day_middle == hottest_temp_middle:
+                    hottest_days.append(day)
         return hottest_days
 
     def calc_temp_sum_of_day(self, day_data):

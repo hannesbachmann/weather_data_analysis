@@ -1,5 +1,6 @@
 from scipy.interpolate import CubicSpline
 import numpy as np
+import scipy.spatial
 
 
 def perform_interpolation(complete_data):
@@ -48,4 +49,43 @@ def perform_interpolation(complete_data):
                                     str(spline_arr[spline_index]), row[4], row[5]])
         spline_index += 1
     return finer_complete_file
+
+
+def cov_func(d):
+    return 0.8 * np.exp(-np.abs(np.sin(np.pi * d)) / 0.5 - np.abs(d / 25.) ** 2 - 2.5) + \
+           (0.2 - 0.01) * np.exp(-(np.abs(np.sin(np.pi * d / 4)) / 0.2)) + 0.01 * np.exp(-np.abs(d / 45.))
+
+
+def cov_mat(x1, x2, cov_func, noise=0):
+    cov = cov_func(scipy.spatial.distance_matrix(np.atleast_2d(x1).T, np.atleast_2d(x2).T))
+    if noise:
+        np.fill_diagonal(cov, np.diag(cov) + noise)
+    return cov
+
+
+def gauss_process(complete_data):
+    x = np.arange(2015., 2020., 5 / 4383.)
+
+    y = []
+    for i in range(len(complete_data)):
+        if i % 10 == 0 and complete_data[i][2][0:4] != '2020':
+            y.append(float(complete_data[i][3]) + 30)
+
+    x_known = x
+    y_known = np.log(y)
+    x_unknown = np.arange(2020, 2021, 5 / 4383.)  # range der unbekannten
+
+    Ckk = cov_mat(x_known, x_known, cov_func, noise=0.02)
+    Cuu = cov_mat(x_unknown, x_unknown, cov_func, noise=0.00)
+    CkkInv = np.linalg.inv(Ckk)
+    Cuk = cov_mat(x_unknown, x_known, cov_func, noise=0)
+    m = np.mean(y_known)
+    y_unknown = m + np.dot(np.dot(Cuk, CkkInv), y_known - m)
+    sigmaPrior = np.sqrt(np.mean(np.square(y_known)))
+    sigma = sigmaPrior * np.sqrt(np.diag(Cuu - np.dot(np.dot(Cuk, CkkInv), Cuk.T)))
+    y = [value - 30 for value in y]
+
+    return [x, y, x_unknown, y_unknown, sigma]
+
+
 
