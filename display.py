@@ -21,7 +21,6 @@ def plot_hottest_and_coldest_days(hottest_days, coldest_days):
     ax[1].set_ylabel('temperature in °C')
     ax[1].legend()
     fig.tight_layout()
-    plt.show()
 
 
 def plot_trend_prediction(x, y, x_unknown, y_unknown, sigma):
@@ -38,4 +37,7 @@ def plot_trend_prediction(x, y, x_unknown, y_unknown, sigma):
     plt.xlabel('time (year)')
     plt.ylabel('temperature in °C')
     fig.tight_layout()
+
+
+def show():
     plt.show()
