@@ -182,7 +182,7 @@ class Temperature:
                     temperature: string, can be converted to float value
                     quality_niveau: string
                     quality_byte: string
-        :return temp_sum:
+        :return temp_sum: int, sum of the temperatures over one day
         """
         temp_sum = 0
         for row in day_data:
@@ -191,8 +191,17 @@ class Temperature:
 
     def separate_into_days(self, year_data):
         """
-        :param year_data:
+        convert the years data into days data
 
+        :param year_data: {array-like}, shape = [rows]
+                rows: {array-like}, shape = [product_code, SDO_ID, time_stamp, temperature, quality_niveau,
+                                            quality_byte], represent the years
+                    product_code: string
+                    SDO_ID: string
+                    time_stamp: string, time in 'yyyymmddhhmm'
+                    temperature: string, can be converted to float value
+                    quality_niveau: string
+                    quality_byte: string
         :return days_data: {array-like}, shape = [rows]
                 rows: {array-like}, shape = [product_code, SDO_ID, time_stamp, temperature, quality_niveau,
                                             quality_byte], represent the days
@@ -218,6 +227,7 @@ class Temperature:
     def separate_into_years(self, complete_data):
         """
         convert the complete data set into a set of separated years
+
         :param complete_data: {array-like}, shape = [rows]
                 rows: {array-like}, shape = [product_code, SDO_ID, time_stamp, temperature, quality_niveau,
                                             quality_byte], represent the days
@@ -227,10 +237,9 @@ class Temperature:
                     temperature: string, can be converted to float value
                     quality_niveau: string
                     quality_byte: string
-
-        :return days_data: {array-like}, shape = [rows]
+        :return year_data: {array-like}, shape = [rows]
                 rows: {array-like}, shape = [product_code, SDO_ID, time_stamp, temperature, quality_niveau,
-                                            quality_byte], represent the days
+                                            quality_byte], represent the years
                     product_code: string
                     SDO_ID: string
                     time_stamp: string, time in 'yyyymmddhhmm'
