@@ -170,6 +170,20 @@ class Temperature:
         return hottest_days
 
     def calc_temp_sum_of_day(self, day_data):
+        """
+        calculating the sum of the temperatures of every day
+
+        :param day_data: years: {array-like}, shape = [rows]
+                rows: {array-like}, shape = [product_code, SDO_ID, time_stamp, temperature, quality_niveau,
+                                            quality_byte], represent the days
+                    product_code: string
+                    SDO_ID: string
+                    time_stamp: string, time in 'yyyymmddhhmm'
+                    temperature: string, can be converted to float value
+                    quality_niveau: string
+                    quality_byte: string
+        :return temp_sum:
+        """
         temp_sum = 0
         for row in day_data:
             temp_sum += float(row[3])
