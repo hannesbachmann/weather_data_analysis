@@ -4,6 +4,29 @@ import scipy.spatial
 
 
 def perform_interpolation(complete_data):
+    """
+    perform interpolation calculation on the complete data
+    convert the time steps into 15 minutes interval
+
+    :param complete_data: {array-like}, shape = [rows]
+            rows: {array-like}, shape = [product_code, SDO_ID, time_stamp, temperature, quality_niveau,
+                                        quality_byte]
+                product_code: string
+                SDO_ID: string
+                time_stamp: string, time in 'yyyymmddhhmm'
+                temperature: string, can be converted to float value
+                quality_niveau: string
+                quality_byte: string
+    :return finer_complete_file: {array-like}, shape = [rows]
+            rows: {array-like}, shape = [product_code, SDO_ID, time_stamp, temperature, quality_niveau,
+                                        quality_byte]
+                product_code: string
+                SDO_ID: string
+                time_stamp: string, time in 'yyyymmddhhmm'
+                temperature: string, can be converted to float value
+                quality_niveau: string
+                quality_byte: string
+    """
     values = [row[3] for row in complete_data]
     values = values[1:]
 
@@ -84,7 +107,7 @@ def gauss_process(complete_data):
 
     :param complete_data: {array-like}, shape = [rows]
             rows: {array-like}, shape = [product_code, SDO_ID, time_stamp, temperature, quality_niveau,
-                                        quality_byte], represent the days
+                                        quality_byte]
                 product_code: string
                 SDO_ID: string
                 time_stamp: string, time in 'yyyymmddhhmm'
