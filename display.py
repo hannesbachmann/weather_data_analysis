@@ -3,6 +3,32 @@ import numpy as np
 
 
 def plot_hottest_and_coldest_days(hottest_days, coldest_days):
+    """
+    plot hottest/coldest days of each year over time of day
+
+    :param hottest_days: {array-like}, shape = [days]
+        days: {array-like}, shape = [day]
+            day: {array-like}, shape = [rows]
+                rows: {array-like}, shape = [product_code, SDO_ID, time_stamp, temperature, quality_niveau,
+                                            quality_byte], represent the days
+                    product_code: string
+                    SDO_ID: string
+                    time_stamp: string, time in 'yyyymmddhhmm'
+                    temperature: string, can be converted to float value
+                    quality_niveau: string
+                    quality_byte: string
+    :param coldest_days: {array-like}, shape = [days]
+        days: {array-like}, shape = [day]
+            day: {array-like}, shape = [rows]
+                rows: {array-like}, shape = [product_code, SDO_ID, time_stamp, temperature, quality_niveau,
+                                            quality_byte], represent the days
+                    product_code: string
+                    SDO_ID: string
+                    time_stamp: string, time in 'yyyymmddhhmm'
+                    temperature: string, can be converted to float value
+                    quality_niveau: string
+                    quality_byte: string
+    """
     fig, ax = plt.subplots(2, 1)
     fig.suptitle('hottest and coldest days of each year')
     for day in hottest_days:
@@ -24,6 +50,20 @@ def plot_hottest_and_coldest_days(hottest_days, coldest_days):
 
 
 def plot_trend_prediction(x, y, x_unknown, y_unknown, sigma):
+    """
+    plot the trend for future temperature over time
+
+    :param x: {array-like}, shape = [time_stamps]
+        time_stamps: float, represents time
+    :param y: {array-like}, shape = [temperature_values]
+        temperature_values: float, represents temperature in °C
+    :param x_unknown: {array-like}, shape = [time_stamps]
+        time_stamps: float, represents time after known time
+    :param y_unknown: {array-like}, shape = [temperature_values]
+        temperature_values: float, represents temperature in °C
+    :param sigma: {array-like}, shape = [values]
+        values: float, variable for possible inaccuracy in the future trend
+    """
     fig = plt.figure(figsize=(6, 3), dpi=100)
     plt.plot(x, y, '-', label='true data')
     plt.plot(x_unknown, np.exp(y_unknown) - 30, 'r-', label='prediction')  # expected future data
