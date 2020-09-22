@@ -60,6 +60,37 @@ class TempData:
         self.__file_type = 'csv'
 
     def store_extrema(self, legend, hottest, coldest):
+        """
+        store the hottest and coldest days for each year in 'hottest_coldest.csv' file
+
+        :param legend: {array-like}, shape = [  "Produkt_Code",
+                                                "SDO_ID","Zeitstempel",
+                                                "Wert",
+                                                "Qualitaet_Niveau",
+                                                "Qualitaet_Byte"  ]
+        :param hottest: {array-like}, shape = [days]
+            days: {array-like}, shape = [day]
+                day: {array-like}, shape = [rows]
+                    rows: {array-like}, shape = [product_code, SDO_ID, time_stamp, temperature, quality_niveau,
+                                                quality_byte], represent the days
+                        product_code: string
+                        SDO_ID: string
+                        time_stamp: string, time in 'yyyymmddhhmm'
+                        temperature: string, can be converted to float value
+                        quality_niveau: string
+                        quality_byte: string
+        :param coldest: {array-like}, shape = [days]
+            days: {array-like}, shape = [day]
+                day: {array-like}, shape = [rows]
+                    rows: {array-like}, shape = [product_code, SDO_ID, time_stamp, temperature, quality_niveau,
+                                                quality_byte], represent the days
+                        product_code: string
+                        SDO_ID: string
+                        time_stamp: string, time in 'yyyymmddhhmm'
+                        temperature: string, can be converted to float value
+                        quality_niveau: string
+                        quality_byte: string
+        """
         with open(self.__rel_path + '.' + self.__file_type, 'w', newline='') as csv_hottest:
             csv_writer = csv.writer(csv_hottest, delimiter=',')
             csv_writer.writerow(legend)
