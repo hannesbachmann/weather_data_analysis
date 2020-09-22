@@ -1,5 +1,3 @@
-
-
 class Temperature:
     def __init__(self):
         """
@@ -14,8 +12,9 @@ class Temperature:
         getter for hottest temperatures of the year and when they occurred
 
         :return self.__hottest_temp_years: {array-like}, shape = [years]
-            years: {array-like}, shape = [row]
-                row: {array-like}, shape = [product_code, SDO_ID, time_stamp, temperature, quality_niveau, quality_byte]
+            years: {array-like}, shape = [rows]
+                rows: {array-like}, shape = [product_code, SDO_ID, time_stamp, temperature, quality_niveau,
+                                            quality_byte]
                     product_code: string
                     SDO_ID: string
                     time_stamp: string, time in 'yyyymmddhhmm'
@@ -30,8 +29,9 @@ class Temperature:
         getter for coldest temperatures of the year and when they occurred
 
         :return self.__coldest_temp_years: {array-like}, shape = [years]
-            years: {array-like}, shape = [row]
-                row: {array-like}, shape = [product_code, SDO_ID, time_stamp, temperature, quality_niveau, quality_byte]
+            years: {array-like}, shape = [rows]
+                rows: {array-like}, shape = [product_code, SDO_ID, time_stamp, temperature, quality_niveau,
+                                            quality_byte]
                     product_code: string
                     SDO_ID: string
                     time_stamp: string, time in 'yyyymmddhhmm'
@@ -42,6 +42,21 @@ class Temperature:
         return self.__coldest_temp_years
 
     def find_coldest_temp_in_year(self, year_data):
+        """
+        finding the coldest temperature from each year
+        store in self.__coldest_temp_year list
+
+        :param year_data: {array-like}, shape = [rows]
+                row: {array-like}, shape = [product_code, SDO_ID, time_stamp, temperature, quality_niveau,
+                                            quality_byte]
+                    product_code: string
+                    SDO_ID: string
+                    time_stamp: string, time in 'yyyymmddhhmm'
+                    temperature: string, can be converted to float value
+                    quality_niveau: string
+                    quality_byte: string
+        """
+        print(year_data)
         coldest_temp = float(year_data[1][3])
         coldest_row = [year_data[1]]
         for row in year_data[1:]:
@@ -53,6 +68,20 @@ class Temperature:
         self.__coldest_temp_years.append(coldest_row)
 
     def find_hottest_temp_in_year(self, year_data):
+        """
+        finding the hottest temperature from each year
+        store in self.__hottest_temp_year list
+
+        :param year_data: {array-like}, shape = [rows]
+                row: {array-like}, shape = [product_code, SDO_ID, time_stamp, temperature, quality_niveau,
+                                            quality_byte]
+                    product_code: string
+                    SDO_ID: string
+                    time_stamp: string, time in 'yyyymmddhhmm'
+                    temperature: string, can be converted to float value
+                    quality_niveau: string
+                    quality_byte: string
+        """
         hottest_temp = float(year_data[1][3])
         hottest_row = [year_data[1]]
         for row in year_data[1:]:
