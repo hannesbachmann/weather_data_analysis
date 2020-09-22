@@ -5,6 +5,17 @@ from display import plot_hottest_and_coldest_days, plot_trend_prediction, show
 
 
 def run():
+    """
+    complete assembled workflow
+    - > open and store data set
+    - > perform interpolation on data set
+    - > find coldest/hottest temperatures of each year
+    - > find coldest/hottest days of each year
+    - > store the coldest/hottest temperatures of each year
+    - > plot coldest/hottest days
+    - > perform gauss process future prediction
+    - > plot future prediction
+    """
     Dataset = DataSet()
     Temp = Temperature()
     Tempdata = TempData()
