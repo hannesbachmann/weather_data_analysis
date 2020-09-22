@@ -52,11 +52,26 @@ def perform_interpolation(complete_data):
 
 
 def cov_func(d):
+    """
+    calculating covFunc needed for gauss process
+
+    :param d:
+    :return calculation_result:
+    """
     return 0.8 * np.exp(-np.abs(np.sin(np.pi * d)) / 0.5 - np.abs(d / 25.) ** 2 - 2.5) + \
            (0.2 - 0.01) * np.exp(-(np.abs(np.sin(np.pi * d / 4)) / 0.2)) + 0.01 * np.exp(-np.abs(d / 45.))
 
 
-def cov_mat(x1, x2, cov_func, noise=0):
+def cov_mat(x1, x2, cov_func, noise=0.0):
+    """
+    calculating covMat needed for gauss process
+
+    :param x1: x_known/x_unknown, list for data set
+    :param x2: x_known/x_unknown, list for data set
+    :param cov_func: function, calculating covFunc needed for gauss process
+    :param noise: float, default=0
+    :return cov: list, calculated result cov_func with diagonal noise
+    """
     cov = cov_func(scipy.spatial.distance_matrix(np.atleast_2d(x1).T, np.atleast_2d(x2).T))
     if noise:
         np.fill_diagonal(cov, np.diag(cov) + noise)
@@ -64,6 +79,30 @@ def cov_mat(x1, x2, cov_func, noise=0):
 
 
 def gauss_process(complete_data):
+    """
+    perform the gauss process trend calculation to predict the future
+
+    :param complete_data: {array-like}, shape = [rows]
+            rows: {array-like}, shape = [product_code, SDO_ID, time_stamp, temperature, quality_niveau,
+                                        quality_byte], represent the days
+                product_code: string
+                SDO_ID: string
+                time_stamp: string, time in 'yyyymmddhhmm'
+                temperature: string, can be converted to float value
+                quality_niveau: string
+                quality_byte: string
+    :return [x, y, x_unknown, y_unknown, sigma]: {array-like}
+        x: {array-like}, shape = [time_stamps]
+            time_stamps: float, represents time
+        y: {array-like}, shape = [temperature_values]
+            temperature_values: float, represents temperature in °C
+        x_unknown: {array-like}, shape = [time_stamps]
+            time_stamps: float, represents time after known time
+        y_unknown: {array-like}, shape = [temperature_values]
+            temperature_values: float, represents temperature in °C
+        sigma: {array-like}, shape = [values]
+            values: float, variable for possible inaccuracy in the future trend
+    """
     x = np.arange(2015., 2020., 5 / 4383.)
 
     y = []
