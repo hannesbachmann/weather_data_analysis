@@ -38,13 +38,6 @@ class DataSet:
         """
         return self.__data
 
-    def get_row(self, row_num):
-        print('hello !')
-        if row_num != 0:
-            return self.__data[row_num]
-        else:
-            return None
-
     def get_legend(self):
         """
         getter for the top legend of the .csv file
