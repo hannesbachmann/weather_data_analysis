@@ -2,13 +2,32 @@
 
 class Temperature:
     def __init__(self):
+        """
+        Initialize from Temperature class
+        """
+        # store the max/min temperature for every year
         self.__hottest_temp_years = []
         self.__coldest_temp_years = []
 
+        # store the max/min temperature over day for every year
         self.__hottest_day = None
         self.__coldest_day = None
 
     def get_hottest_temp_each_year(self):
+        """
+        getter for hottest temperatures of the year and when they occurred
+
+        :return self.__hottest_temp_years: {array-like}, shape = [years]
+            years: {array-like}, shape = [row]
+                row: {array-like}, shape = [product_code, SDO_ID, time_stamp, temperature, quality_niveau, quality_byte]
+                    product_code: string
+                    SDO_ID: string
+                    time_stamp: string, time in 'yyyymmddhhmm'
+                    temperature: string, can be converted to float value
+                    quality_niveau: string
+                    quality_byte: string
+        """
+        print(self.__hottest_temp_years)
         return self.__hottest_temp_years
 
     def get_coldest_temp_each_year(self):
