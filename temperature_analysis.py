@@ -131,6 +131,31 @@ class Temperature:
         return coldest_days
 
     def find_hottest_day(self, days_data):
+        """
+        find the hottest day for every year
+
+        :param days_data: {array-like}, shape = [years]
+            years: {array-like}, shape = [rows]
+                rows: {array-like}, shape = [product_code, SDO_ID, time_stamp, temperature, quality_niveau,
+                                            quality_byte], represent the days
+                    product_code: string
+                    SDO_ID: string
+                    time_stamp: string, time in 'yyyymmddhhmm'
+                    temperature: string, can be converted to float value
+                    quality_niveau: string
+                    quality_byte: string
+        :return hottest_days: {array-like}, shape = [days]
+            days: {array-like}, shape = [day]
+                day: {array-like}, shape = [rows]
+                    rows: {array-like}, shape = [product_code, SDO_ID, time_stamp, temperature, quality_niveau,
+                                                quality_byte], represent the days
+                        product_code: string
+                        SDO_ID: string
+                        time_stamp: string, time in 'yyyymmddhhmm'
+                        temperature: string, can be converted to float value
+                        quality_niveau: string
+                        quality_byte: string
+        """
         hottest_days = [days_data[0]]
         hottest_temp_middle = self.calc_temp_sum_of_day(days_data[0]) / len(days_data[0])
         for day in days_data[1:]:
