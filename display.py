@@ -80,4 +80,7 @@ def plot_trend_prediction(x, y, x_unknown, y_unknown, sigma):
 
 
 def show():
+    """
+    show every figure of plt
+    """
     plt.show()
