@@ -1,26 +1,61 @@
-
-
 class Temperature:
     def __init__(self):
+        """
+        Initialize from Temperature class
+        """
+        # store the max/min temperature for every year
         self.__hottest_temp_years = []
         self.__coldest_temp_years = []
 
-        self.__hottest_day = None
-        self.__coldest_day = None
-
     def get_hottest_temp_each_year(self):
+        """
+        getter for hottest temperatures of the year and when they occurred
+
+        :return self.__hottest_temp_years: {array-like}, shape = [years]
+            years: {array-like}, shape = [rows]
+                rows: {array-like}, shape = [product_code, SDO_ID, time_stamp, temperature, quality_niveau,
+                                            quality_byte]
+                    product_code: string
+                    SDO_ID: string
+                    time_stamp: string, time in 'yyyymmddhhmm'
+                    temperature: string, can be converted to float value
+                    quality_niveau: string
+                    quality_byte: string
+        """
         return self.__hottest_temp_years
 
     def get_coldest_temp_each_year(self):
+        """
+        getter for coldest temperatures of the year and when they occurred
+
+        :return self.__coldest_temp_years: {array-like}, shape = [years]
+            years: {array-like}, shape = [rows]
+                rows: {array-like}, shape = [product_code, SDO_ID, time_stamp, temperature, quality_niveau,
+                                            quality_byte]
+                    product_code: string
+                    SDO_ID: string
+                    time_stamp: string, time in 'yyyymmddhhmm'
+                    temperature: string, can be converted to float value
+                    quality_niveau: string
+                    quality_byte: string
+        """
         return self.__coldest_temp_years
 
-    def get_hottest_day(self):
-        return self.__hottest_day
-
-    def get_coldest_day(self):
-        return self.__coldest_day
-
     def find_coldest_temp_in_year(self, year_data):
+        """
+        finding the coldest temperature from each year
+        store in self.__coldest_temp_year list
+
+        :param year_data: {array-like}, shape = [rows]
+                rows: {array-like}, shape = [product_code, SDO_ID, time_stamp, temperature, quality_niveau,
+                                            quality_byte], represent the years
+                    product_code: string
+                    SDO_ID: string
+                    time_stamp: string, time in 'yyyymmddhhmm'
+                    temperature: string, can be converted to float value
+                    quality_niveau: string
+                    quality_byte: string
+        """
         coldest_temp = float(year_data[1][3])
         coldest_row = [year_data[1]]
         for row in year_data[1:]:
@@ -32,6 +67,20 @@ class Temperature:
         self.__coldest_temp_years.append(coldest_row)
 
     def find_hottest_temp_in_year(self, year_data):
+        """
+        finding the hottest temperature from each year
+        store in self.__hottest_temp_year list
+
+        :param year_data: {array-like}, shape = [rows]
+                rows: {array-like}, shape = [product_code, SDO_ID, time_stamp, temperature, quality_niveau,
+                                            quality_byte], represent the years
+                    product_code: string
+                    SDO_ID: string
+                    time_stamp: string, time in 'yyyymmddhhmm'
+                    temperature: string, can be converted to float value
+                    quality_niveau: string
+                    quality_byte: string
+        """
         hottest_temp = float(year_data[1][3])
         hottest_row = [year_data[1]]
         for row in year_data[1:]:
@@ -43,6 +92,31 @@ class Temperature:
         self.__hottest_temp_years.append(hottest_row)
 
     def find_coldest_day(self, days_data):
+        """
+        find the coldest day for every year
+
+        :param days_data: {array-like}, shape = [years]
+            years: {array-like}, shape = [rows]
+                rows: {array-like}, shape = [product_code, SDO_ID, time_stamp, temperature, quality_niveau,
+                                            quality_byte], represent the days
+                    product_code: string
+                    SDO_ID: string
+                    time_stamp: string, time in 'yyyymmddhhmm'
+                    temperature: string, can be converted to float value
+                    quality_niveau: string
+                    quality_byte: string
+        :return coldest_days: {array-like}, shape = [days]
+            days: {array-like}, shape = [day]
+                day: {array-like}, shape = [rows]
+                    rows: {array-like}, shape = [product_code, SDO_ID, time_stamp, temperature, quality_niveau,
+                                                quality_byte], represent the days
+                        product_code: string
+                        SDO_ID: string
+                        time_stamp: string, time in 'yyyymmddhhmm'
+                        temperature: string, can be converted to float value
+                        quality_niveau: string
+                        quality_byte: string
+        """
         coldest_days = [days_data[0]]
         coldest_temp_middle = self.calc_temp_sum_of_day(days_data[0]) / len(days_data[0])
         for day in days_data[1:]:
@@ -57,6 +131,31 @@ class Temperature:
         return coldest_days
 
     def find_hottest_day(self, days_data):
+        """
+        find the hottest day for every year
+
+        :param days_data: {array-like}, shape = [years]
+            years: {array-like}, shape = [rows]
+                rows: {array-like}, shape = [product_code, SDO_ID, time_stamp, temperature, quality_niveau,
+                                            quality_byte], represent the days
+                    product_code: string
+                    SDO_ID: string
+                    time_stamp: string, time in 'yyyymmddhhmm'
+                    temperature: string, can be converted to float value
+                    quality_niveau: string
+                    quality_byte: string
+        :return hottest_days: {array-like}, shape = [days]
+            days: {array-like}, shape = [day]
+                day: {array-like}, shape = [rows]
+                    rows: {array-like}, shape = [product_code, SDO_ID, time_stamp, temperature, quality_niveau,
+                                                quality_byte], represent the days
+                        product_code: string
+                        SDO_ID: string
+                        time_stamp: string, time in 'yyyymmddhhmm'
+                        temperature: string, can be converted to float value
+                        quality_niveau: string
+                        quality_byte: string
+        """
         hottest_days = [days_data[0]]
         hottest_temp_middle = self.calc_temp_sum_of_day(days_data[0]) / len(days_data[0])
         for day in days_data[1:]:
@@ -71,16 +170,47 @@ class Temperature:
         return hottest_days
 
     def calc_temp_sum_of_day(self, day_data):
+        """
+        calculating the sum of the temperatures of every day
+
+        :param day_data: years: {array-like}, shape = [rows]
+                rows: {array-like}, shape = [product_code, SDO_ID, time_stamp, temperature, quality_niveau,
+                                            quality_byte], represent the days
+                    product_code: string
+                    SDO_ID: string
+                    time_stamp: string, time in 'yyyymmddhhmm'
+                    temperature: string, can be converted to float value
+                    quality_niveau: string
+                    quality_byte: string
+        :return temp_sum: int, sum of the temperatures over one day
+        """
         temp_sum = 0
         for row in day_data:
             temp_sum += float(row[3])
         return temp_sum
 
     def separate_into_days(self, year_data):
-        """structure:
-            [[day], ..., [day]]
-            day:
-                [row, ..., row]
+        """
+        convert the years data into days data
+
+        :param year_data: {array-like}, shape = [rows]
+                rows: {array-like}, shape = [product_code, SDO_ID, time_stamp, temperature, quality_niveau,
+                                            quality_byte], represent the years
+                    product_code: string
+                    SDO_ID: string
+                    time_stamp: string, time in 'yyyymmddhhmm'
+                    temperature: string, can be converted to float value
+                    quality_niveau: string
+                    quality_byte: string
+        :return days_data: {array-like}, shape = [rows]
+                rows: {array-like}, shape = [product_code, SDO_ID, time_stamp, temperature, quality_niveau,
+                                            quality_byte], represent the days
+                    product_code: string
+                    SDO_ID: string
+                    time_stamp: string, time in 'yyyymmddhhmm'
+                    temperature: string, can be converted to float value
+                    quality_niveau: string
+                    quality_byte: string
         """
         temperatures_by_day = [[]]
         num_days = 0
@@ -93,9 +223,30 @@ class Temperature:
                 temperatures_by_day[num_days].append(row)
         temperatures_by_day.pop()
         return temperatures_by_day
-        # store information of each day of the year
 
     def separate_into_years(self, complete_data):
+        """
+        convert the complete data set into a set of separated years
+
+        :param complete_data: {array-like}, shape = [rows]
+                rows: {array-like}, shape = [product_code, SDO_ID, time_stamp, temperature, quality_niveau,
+                                            quality_byte], represent the days
+                    product_code: string
+                    SDO_ID: string
+                    time_stamp: string, time in 'yyyymmddhhmm'
+                    temperature: string, can be converted to float value
+                    quality_niveau: string
+                    quality_byte: string
+        :return year_data: {array-like}, shape = [rows]
+                rows: {array-like}, shape = [product_code, SDO_ID, time_stamp, temperature, quality_niveau,
+                                            quality_byte], represent the years
+                    product_code: string
+                    SDO_ID: string
+                    time_stamp: string, time in 'yyyymmddhhmm'
+                    temperature: string, can be converted to float value
+                    quality_niveau: string
+                    quality_byte: string
+        """
         temperatures_by_year = [[]]
         total_year = int(complete_data[1][2][0:4])
         num_years = 0
