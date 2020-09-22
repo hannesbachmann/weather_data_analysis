@@ -9,10 +9,6 @@ class Temperature:
         self.__hottest_temp_years = []
         self.__coldest_temp_years = []
 
-        # store the max/min temperature over day for every year
-        self.__hottest_day = None
-        self.__coldest_day = None
-
     def get_hottest_temp_each_year(self):
         """
         getter for hottest temperatures of the year and when they occurred
@@ -44,12 +40,6 @@ class Temperature:
                     quality_byte: string
         """
         return self.__coldest_temp_years
-
-    def get_hottest_day(self):
-        return self.__hottest_day
-
-    def get_coldest_day(self):
-        return self.__coldest_day
 
     def find_coldest_temp_in_year(self, year_data):
         coldest_temp = float(year_data[1][3])
