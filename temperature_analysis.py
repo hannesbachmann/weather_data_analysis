@@ -190,10 +190,18 @@ class Temperature:
         return temp_sum
 
     def separate_into_days(self, year_data):
-        """structure:
-            [[day], ..., [day]]
-            day:
-                [row, ..., row]
+        """
+        :param year_data:
+
+        :return days_data: {array-like}, shape = [rows]
+                rows: {array-like}, shape = [product_code, SDO_ID, time_stamp, temperature, quality_niveau,
+                                            quality_byte], represent the days
+                    product_code: string
+                    SDO_ID: string
+                    time_stamp: string, time in 'yyyymmddhhmm'
+                    temperature: string, can be converted to float value
+                    quality_niveau: string
+                    quality_byte: string
         """
         temperatures_by_day = [[]]
         num_days = 0
@@ -206,9 +214,30 @@ class Temperature:
                 temperatures_by_day[num_days].append(row)
         temperatures_by_day.pop()
         return temperatures_by_day
-        # store information of each day of the year
 
     def separate_into_years(self, complete_data):
+        """
+        convert the complete data set into a set of separated years
+        :param complete_data: {array-like}, shape = [rows]
+                rows: {array-like}, shape = [product_code, SDO_ID, time_stamp, temperature, quality_niveau,
+                                            quality_byte], represent the days
+                    product_code: string
+                    SDO_ID: string
+                    time_stamp: string, time in 'yyyymmddhhmm'
+                    temperature: string, can be converted to float value
+                    quality_niveau: string
+                    quality_byte: string
+
+        :return days_data: {array-like}, shape = [rows]
+                rows: {array-like}, shape = [product_code, SDO_ID, time_stamp, temperature, quality_niveau,
+                                            quality_byte], represent the days
+                    product_code: string
+                    SDO_ID: string
+                    time_stamp: string, time in 'yyyymmddhhmm'
+                    temperature: string, can be converted to float value
+                    quality_niveau: string
+                    quality_byte: string
+        """
         temperatures_by_year = [[]]
         total_year = int(complete_data[1][2][0:4])
         num_years = 0
