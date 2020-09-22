@@ -47,8 +47,8 @@ class Temperature:
         store in self.__coldest_temp_year list
 
         :param year_data: {array-like}, shape = [rows]
-                row: {array-like}, shape = [product_code, SDO_ID, time_stamp, temperature, quality_niveau,
-                                            quality_byte]
+                rows: {array-like}, shape = [product_code, SDO_ID, time_stamp, temperature, quality_niveau,
+                                            quality_byte], represent the years
                     product_code: string
                     SDO_ID: string
                     time_stamp: string, time in 'yyyymmddhhmm'
@@ -56,7 +56,6 @@ class Temperature:
                     quality_niveau: string
                     quality_byte: string
         """
-        print(year_data)
         coldest_temp = float(year_data[1][3])
         coldest_row = [year_data[1]]
         for row in year_data[1:]:
@@ -73,8 +72,8 @@ class Temperature:
         store in self.__hottest_temp_year list
 
         :param year_data: {array-like}, shape = [rows]
-                row: {array-like}, shape = [product_code, SDO_ID, time_stamp, temperature, quality_niveau,
-                                            quality_byte]
+                rows: {array-like}, shape = [product_code, SDO_ID, time_stamp, temperature, quality_niveau,
+                                            quality_byte], represent the years
                     product_code: string
                     SDO_ID: string
                     time_stamp: string, time in 'yyyymmddhhmm'
@@ -93,6 +92,31 @@ class Temperature:
         self.__hottest_temp_years.append(hottest_row)
 
     def find_coldest_day(self, days_data):
+        """
+        find the coldest day for every year
+
+        :param days_data: {array-like}, shape = [years]
+            years: {array-like}, shape = [rows]
+                rows: {array-like}, shape = [product_code, SDO_ID, time_stamp, temperature, quality_niveau,
+                                            quality_byte], represent the days
+                    product_code: string
+                    SDO_ID: string
+                    time_stamp: string, time in 'yyyymmddhhmm'
+                    temperature: string, can be converted to float value
+                    quality_niveau: string
+                    quality_byte: string
+        :return coldest_days: {array-like}, shape = [days]
+            days: {array-like}, shape = [day]
+                day: {array-like}, shape = [rows]
+                    rows: {array-like}, shape = [product_code, SDO_ID, time_stamp, temperature, quality_niveau,
+                                                quality_byte], represent the days
+                        product_code: string
+                        SDO_ID: string
+                        time_stamp: string, time in 'yyyymmddhhmm'
+                        temperature: string, can be converted to float value
+                        quality_niveau: string
+                        quality_byte: string
+        """
         coldest_days = [days_data[0]]
         coldest_temp_middle = self.calc_temp_sum_of_day(days_data[0]) / len(days_data[0])
         for day in days_data[1:]:
